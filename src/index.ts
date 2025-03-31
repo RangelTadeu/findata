@@ -122,6 +122,7 @@ const findPeriod = (
     findPeriod(resMO_BS_Intangibles!, new Date("2015-09-30"))
   );
 
+  // question 4
   // read all files:
 
   const files = fs
@@ -143,5 +144,17 @@ const findPeriod = (
     allData.push({ filePath: file, ...res });
   }
 
-  // calculate mean for all files
+  const res4 = allData.reduce(
+    (acc, curr) => {
+      acc.count += curr.count;
+      acc.sum = acc.sum.plus(curr.sum);
+      return acc;
+    },
+    { count: 0, sum: new Decimal(0) }
+  );
+  const mean = res4.sum.dividedBy(res4.count);
+
+  console.log("Mean for MO_BS_AR over all files", mean.toString());
+
+  // question 5 do the same but add the id as arg
 })();
